@@ -2,10 +2,11 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+ENV NODE_ENV=build
 ADD package*.json ./
-RUN npm i typescript && npm install && npm install --only=dev
+RUN npm ci
 
-COPY src ./
+COPY src src
 COPY tsconfig.json ./
 
 RUN npm run build
